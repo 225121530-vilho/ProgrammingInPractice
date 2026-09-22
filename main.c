@@ -6,12 +6,14 @@ int main() {
     float highest = 0;
     float lowest = 0;
     float average;
+    int i;
 
-    printf("MUNICIPAL EMPLOYEE SALARY ANALYSIS\n");
+    printf("SALARY REPORT SYSTEM\n");
     printf("---------------------------------\n\n");
 
-    for (int i = 1; i <= 5; i++) {
-        printf("Enter salary for employee %d: ", i);
+    // Read 5 salaries
+    for (i = 1; i <= 5; i++) {
+        printf("Enter salary %d: ", i);
         scanf("%f", &salary);
 
         total = total + salary;
@@ -19,26 +21,25 @@ int main() {
         if (i == 1) {
             highest = salary;
             lowest = salary;
-        }
-
-        if (salary > highest) {
-            highest = salary;
-        }
-
-        if (salary < lowest) {
-            lowest = salary;
+        } else {
+            if (salary > highest) {
+                highest = salary;
+            }
+            if (salary < lowest) {
+                lowest = salary;
+            }
         }
     }
 
     average = total / 5;
 
     printf("\n--- Salary Report ---\n");
-    printf("-----------------------------\n");
+    printf("---------------------------------\n");
     printf("Total salary   : NAD %.2f\n", total);
     printf("Average salary : NAD %.2f\n", average);
     printf("Highest salary : NAD %.2f\n", highest);
     printf("Lowest salary  : NAD %.2f\n", lowest);
-    printf("-----------------------------\n");
+    printf("---------------------------------\n");
 
     return 0;
 }
