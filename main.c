@@ -1,71 +1,57 @@
 #include <stdio.h>
-#include <string.h>
 
 int main() {
-    char supplierName[100];
-    char email[100];
-    char phone[30];
-    char town[50];
-    char backup[100];
-    char description[300];
-    char searchName[100];
+    int numVehicles;
+    char registrations[50][20];
+    char searchReg[20];
+    int foundReg;
+    int i, k;
 
     printf("================================\n");
-    printf("SUPPLIER MANAGEMENT SYSTEM\n");
+    printf("MUNICIPAL INFORMATION SYSTEM\n");
+    printf("Vehicle Registration Manager\n");
     printf("================================\n\n");
 
-    printf("Enter supplier name: ");
-    fgets(supplierName, sizeof(supplierName), stdin);
-    supplierName[strcspn(supplierName, "\n")] = '\0';
+    printf("Enter number of vehicles: ");
+    scanf("%d", &numVehicles);
 
-    printf("Enter email: ");
-    fgets(email, sizeof(email), stdin);
-    email[strcspn(email, "\n")] = '\0';
+    for (i = 0; i < numVehicles; i++) {
+        printf("Enter vehicle registration %d: ", i + 1);
+        scanf("%19s", registrations[i]);
+    }
 
-    printf("Enter phone: ");
-    fgets(phone, sizeof(phone), stdin);
-    phone[strcspn(phone, "\n")] = '\0';
+    printf("\nAll Vehicle Registrations:\n");
+    for (i = 0; i < numVehicles; i++) {
+        printf(" %s\n", registrations[i]);
+    }
 
-    printf("Enter town: ");
-    fgets(town, sizeof(town), stdin);
-    town[strcspn(town, "\n")] = '\0';
+    printf("\nEnter a registration to search for: ");
+    scanf("%19s", searchReg);
 
-    printf("\n--- SUPPLIER DETAILS ---\n");
-    printf("Name : %s\n", supplierName);
-    printf("Email: %s\n", email);
-    printf("Phone: %s\n", phone);
-    printf("Town : %s\n", town);
+    foundReg = 0;
+    for (i = 0; i < numVehicles; i++) {
+        int match = 1;
+        k = 0;
+        while (searchReg[k] != '\0' && registrations[i][k] != '\0') {
+            if (searchReg[k] != registrations[i][k]) {
+                match = 0;
+                break;
+            }
+            k++;
+        }
+        if (match && searchReg[k] == '\0' && registrations[i][k] == '\0') {
+            foundReg = 1;
+            printf("Registration found at position %d\n", i + 1);
+            break;
+        }
+    }
 
-    printf("\n--- STRING LENGTHS ---\n");
-    printf("Supplier name length: %zu\n", strlen(supplierName));
-    printf("Email length: %zu\n", strlen(email));
-    printf("Town length: %zu\n", strlen(town));
-
-    strcpy(backup, supplierName);
-    printf("\n--- BACKUP COPY ---\n");
-    printf("Original: %s\n", supplierName);
-    printf("Backup  : %s\n", backup);
-
-    strcpy(description, supplierName);
-    strcat(description, " operates in ");
-    strcat(description, town);
-    strcat(description, ".");
-    printf("\n--- SUPPLIER DESCRIPTION ---\n");
-    printf("%s\n", description);
-
-    printf("\n--- SUPPLIER SEARCH ---\n");
-    printf("Enter supplier name to search: ");
-    fgets(searchName, sizeof(searchName), stdin);
-    searchName[strcspn(searchName, "\n")] = '\0';
-
-    if (strcmp(supplierName, searchName) == 0) {
-        printf("Supplier found.\n");
-    } else {
-        printf("Supplier not found.\n");
+    if (!foundReg) {
+        printf("Registration not found.\n");
     }
 
     printf("\n================================\n");
-    printf("End of Supplier Management System\n");
+    printf("End of Municipal Information System\n");
     printf("================================\n");
 
     return 0;
