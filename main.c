@@ -24,7 +24,6 @@ int main() {
     scanf("%f", &tax);
 
     grossSalary = basicSalary + housing + transport;
-
     netSalary = grossSalary - tax;
 
     printf("\n---------------------------------\n");
